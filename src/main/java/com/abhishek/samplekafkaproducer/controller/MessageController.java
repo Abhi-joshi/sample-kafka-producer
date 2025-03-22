@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/api/messages")
@@ -17,9 +18,9 @@ public class MessageController {
     }
 
     @PostMapping("/send")
-    public String sendMessage(@RequestParam String message) {
+    public Mono<String> createProduct(@RequestParam String message) {
         messageService.sendMessage(message);
-        return "Message sent successfully to Kafka!";
+        return Mono.just("Message sent successfully");
     }
 
 }
