@@ -18,7 +18,7 @@ public class MessageController {
     }
 
     @PostMapping("/send")
-    public Mono<String> createProduct(@RequestParam String message) {
+    public Mono<String> sendMessage(@RequestParam String message) {
         messageService.sendMessage(message);
         return Mono.just("Message sent successfully");
     }
