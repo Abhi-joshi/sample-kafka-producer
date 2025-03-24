@@ -14,5 +14,5 @@ spring:
 
 app:
   kafka:
-    topic: user-topic
+    topic: wikimedia-topic
   wikimediaStreamUrl: https://stream.wikimedia.org
