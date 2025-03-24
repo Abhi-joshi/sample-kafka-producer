@@ -7,8 +7,12 @@ spring:
       bootstrap-servers: broker:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      batch-size: 32768
+      properties:
+        linger.ms: 20
 
 
 app:
   kafka:
     topic: user-topic
+  wikimediaStreamUrl: https://stream.wikimedia.org
