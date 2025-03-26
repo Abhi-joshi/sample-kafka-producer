@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: kubernetes-dashboard
+  labels:
+    app: sample-kafka-producer
+  name: sample-kafka-producer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sample-kafka-producer
+  template:
+    metadata:
+      labels:
+        app: sample-kafka-producer
+    spec:
+      containers:
+        - image: sample-kafka-producer:latest
+          imagePullPolicy: IfNotPresent
+          name: sample-kafka-producer
+          ports:
+            - containerPort: 8081
+          env:
+            - name: SPRING_CONFIG_LOCATION
+              value: "file:/config/application.yaml"
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config/application.yaml
+              subPath: application.yaml
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8081
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8081
+            initialDelaySeconds: 10
+            periodSeconds: 5
+      volumes:
+        - name: config-volume
+          configMap:
+            name: sample-kafka-producer-config

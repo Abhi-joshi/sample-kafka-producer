@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sample-kafka-producer-config
+  namespace: kubernetes-dashboard
+data:
+  application.yaml: |-
+    server:
+      port: 8081
+
+    spring:
+      kafka:
+        producer:
+          bootstrap-servers: kafka-service:9092
+          key-serializer: org.apache.kafka.common.serialization.StringSerializer
+          value-serializer: org.apache.kafka.common.serialization.StringSerializer
+          batch-size: 32768
+          properties:
+            linger.ms: 20
+
+    app:
+      kafka:
+        topic: wikimedia-topic
+      wikimediaStreamUrl: https://stream.wikimedia.org
