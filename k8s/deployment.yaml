@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: kubernetes-dashboard
+  namespace: kafka-apps
   labels:
     app: sample-kafka-producer
   name: sample-kafka-producer
