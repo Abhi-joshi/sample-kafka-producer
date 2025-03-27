@@ -11,7 +11,7 @@ data:
     spring:
       kafka:
         producer:
-          bootstrap-servers: kafka-service:9092
+          bootstrap-servers: kafka-service.kafka.svc.cluster.local:9092
           key-serializer: org.apache.kafka.common.serialization.StringSerializer
           value-serializer: org.apache.kafka.common.serialization.StringSerializer
           batch-size: 32768
