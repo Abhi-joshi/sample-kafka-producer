@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: sample-kafka-producer-config
-  namespace: kubernetes-dashboard
+  namespace: kafka-apps
 data:
   application.yaml: |-
     server:
