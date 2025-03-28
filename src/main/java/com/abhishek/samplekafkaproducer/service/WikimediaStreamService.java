@@ -45,7 +45,9 @@ public class WikimediaStreamService {
                             return Mono.empty();
                         }))
                 .doOnError(error -> logger.error("Stream error: {}", error.getMessage()))
-                .retryWhen(Retry.fixedDelay(5, Duration.ofSeconds(5)).filter(Objects::nonNull))
+                .retryWhen(Retry.fixedDelay(5, Duration.ofSeconds(5))
+                        .filter(Objects::nonNull)
+                        .doAfterRetry(signal -> logger.info("Stream recovered after {} attempt(s)", signal.totalRetries())))
                 .onErrorResume(error -> {
                     logger.error("Stream failed permanently, applying fallback: {}", error.getMessage());
                     return Flux.empty();
